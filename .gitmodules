@@ -1,0 +1,6 @@
+[submodule "shared/sqlite"]
+	path = shared/sqlite
+	url = https://github.com/Skytrias/odin-sqlite
+	ignore = all
+[submodules "shared/sqlite"]
+	ignore = all
