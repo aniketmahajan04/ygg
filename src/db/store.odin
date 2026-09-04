@@ -3,14 +3,25 @@ package db
 import sqlite "../../shared/sqlite"
 import "../cli"
 import "core:fmt"
+import "core:os"
 import "core:strings"
 
 DB_PATH :: "./events.db"
 
+get_db_path :: proc() -> string {
+	// Check if running inside Docker environment variable
+	if env_path := os.get_env("YGG_DB_PATH", context.temp_allocator); env_path != "" {
+		return env_path
+	}
+
+	return "./events.db" // Local fallback path
+}
+
 db_init :: proc() -> bool {
 	sqlite.db_cache_cap(16)
 
-	c_path := strings.clone_to_cstring(DB_PATH)
+	db_path := get_db_path()
+	c_path := strings.clone_to_cstring(db_path)
 
 	if err := sqlite.db_init(c_path); err != .OK {
 		fmt.printfln("❌ Failed to open database at %s (Error: %v)", DB_PATH, err)

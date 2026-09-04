@@ -1,0 +1,19 @@
+services:
+  ygg:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ygg_calendar
+    environment:
+      - YGG_DB_PATH=/data/events.db
+    volumes:
+      # Option 1: Mount local host folder for direct file visibility
+      - ./data:/data
+
+      # Option 2: Named volume (uncomment if you prefer Docker-managed volumes)
+    stdin_open: true # Keeps STDIN open for interactive CLI sessions
+    tty: true # Allocated a pseudo-TTY for colored calendar output
+
+
+    # volumes
+    #   ygg_db_data:

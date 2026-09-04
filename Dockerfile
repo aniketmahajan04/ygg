@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copy your source code
+COPY shared/ ./shared/
 COPY src/ ./src/
 
 # Build the ygg binary
